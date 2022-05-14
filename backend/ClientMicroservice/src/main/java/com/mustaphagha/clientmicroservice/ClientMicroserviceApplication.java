@@ -42,7 +42,7 @@ public class ClientMicroserviceApplication {
 					LocalDateTime.now()
 			);
 
-			repository.findClientEntityByEmail(client.getEmail()).orElse(repository.insert(client));
+			//repository.findClientEntityByEmail(client.getEmail()).orElse(repository.insert(client));
 		};
 	}
 

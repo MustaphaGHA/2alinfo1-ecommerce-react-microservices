@@ -13,8 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ClientRestController {
 
-    @Autowired
-    private final ClientService clientService ;
+    private ClientService clientService ;
 
     @GetMapping
     public List<ClientEntity> fetchAllClients() {

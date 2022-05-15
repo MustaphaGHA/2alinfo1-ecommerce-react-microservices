@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { loginSuccess } from "../redux/userRedux";
 
 const Container = styled.div`
   height: 60px;
@@ -70,6 +71,7 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.currentUser);
   return (
     <Container>
       <Wrapper>
@@ -81,13 +83,21 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo><Link to="/" style={{ textDecoration: 'none' }}>Echrili.</Link></Logo>
+          <Logo>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              Echrili.
+            </Link>
+          </Logo>
         </Center>
         <Right>
-          <MenuItem>Créer un compte</MenuItem>
-          <Link to="/login">
-            <MenuItem>Se connecter</MenuItem>
-          </Link>
+          {!user && (
+            <>
+              <MenuItem>Créer un compte</MenuItem>
+              <Link to="/login">
+                <MenuItem>Se connecter</MenuItem>
+              </Link>{" "}
+            </>
+          )}
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">

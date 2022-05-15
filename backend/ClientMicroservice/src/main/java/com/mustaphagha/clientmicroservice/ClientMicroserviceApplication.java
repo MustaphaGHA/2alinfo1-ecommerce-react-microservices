@@ -39,7 +39,8 @@ public class ClientMicroserviceApplication {
 					Gender.MALE,
 					Arrays.asList("Product") ,
 					BigDecimal.TEN,
-					LocalDateTime.now()
+					LocalDateTime.now(),
+					"test123"
 			);
 
 			//repository.findClientEntityByEmail(client.getEmail()).orElse(repository.insert(client));

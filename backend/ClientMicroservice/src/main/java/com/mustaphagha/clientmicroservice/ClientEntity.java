@@ -24,7 +24,9 @@ public class ClientEntity {
     private BigDecimal totalSpent ;
     private LocalDateTime createdAt ;
 
-    public ClientEntity(String firstName, String lastName, Address address, String email, Gender gender, List<String> purchasedProducts, BigDecimal totalSpent, LocalDateTime createdAt) {
+    private String password ;
+
+    public ClientEntity(String firstName, String lastName, Address address, String email, Gender gender, List<String> purchasedProducts, BigDecimal totalSpent, LocalDateTime createdAt, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -33,5 +35,6 @@ public class ClientEntity {
         this.purchasedProducts = purchasedProducts;
         this.totalSpent = totalSpent;
         this.createdAt = createdAt;
+        this.password = password ;
     }
 }

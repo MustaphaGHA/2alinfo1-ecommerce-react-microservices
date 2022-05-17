@@ -7,10 +7,11 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
-import { userRequest } from "../requestMethods";
+import { payRequest, userRequest } from "../requestMethods";
 import { useHistory } from "react-router";
 
-const KEY = process.env.REACT_APP_STRIPE;
+const KEY =
+  "pk_test_51KyvTsHBSOGpzWHYfQNwYoSKLnPn2QaZr0AUTylm6b3XaRTVsp0QRSlmJ7jfrxgYXkjqsIMl8dUldVXXYaiEAuvV00JkZDOhgg";
 
 const Container = styled.div``;
 
@@ -171,13 +172,16 @@ const Cart = () => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const res = await userRequest.post("/checkout/payment", {
-          tokenId: stripeToken.id,
-          amount: 500,
+        const res = await payRequest.post("/create-checkout-session", {
+          items: [
+            { id: 1, quantity: 3, name: "prod1", price: 20 },
+            { id: 2, quantity: 1, name: "prod2", price: 30 },
+          ],
         });
         history.push("/success", {
           stripeData: res.data,
-          products: cart, });
+          products: cart,
+        });
       } catch {}
     };
     stripeToken && makeRequest();

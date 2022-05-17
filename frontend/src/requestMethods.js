@@ -17,3 +17,7 @@ export const userRequest = axios.create({
   baseURL: BASE_URL,
   header: { token: `Bearer ${TOKEN}` },
 });
+
+export const payRequest = axios.create({
+  baseURL: "http://localhost:8088/",
+});

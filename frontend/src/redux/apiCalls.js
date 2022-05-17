@@ -8,8 +8,8 @@ export const login = async (dispatch, user) => {
       params: { email: user.username, password: user.password },
     });
     console.log(res);
-    if (res.data !== "") dispatch(loginSuccess(res.data));
-    else alert("Invalid credentials");
+    if (res.data !== "" && res.data !== null) dispatch(loginSuccess(res.data));
+    else dispatch(loginFailure());
   } catch (err) {
     console.log(err);
     dispatch(loginFailure());

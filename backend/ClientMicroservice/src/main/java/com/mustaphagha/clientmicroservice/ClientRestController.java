@@ -1,6 +1,10 @@
 package com.mustaphagha.clientmicroservice;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -14,6 +18,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class ClientRestController {
 
+    @Autowired
     private ClientService clientService ;
 
     @GetMapping("/clients")
@@ -33,5 +38,22 @@ public class ClientRestController {
             }
         } else return null;
 
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<ClientEntity> createClient(@RequestBody ClientEntity client) {
+        return new ResponseEntity<>(clientService.addClient(client), HttpStatus.OK);
+    }
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ClientEntity> updateClient(@PathVariable(value = "id") int id,
+                                                   @RequestBody ClientEntity client){
+        return new ResponseEntity<>(clientService.updateClient(id, client), HttpStatus.OK);
+    }
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> deleteClient(@PathVariable(value = "id") int id){
+        return new ResponseEntity<>(clientService.deleteClient(id), HttpStatus.OK);
     }
 }

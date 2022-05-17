@@ -90,12 +90,12 @@ const Navbar = () => {
           </Logo>
         </Center>
         <Right>
-          {!user && (
+          {user == null && (
             <>
               <MenuItem>Créer un compte</MenuItem>
               <Link to="/login">
                 <MenuItem>Se connecter</MenuItem>
-              </Link>{" "}
+              </Link>
             </>
           )}
           <Link to="/cart">

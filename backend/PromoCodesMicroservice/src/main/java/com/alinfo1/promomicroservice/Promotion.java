@@ -1,10 +1,18 @@
 package com.alinfo1.promomicroservice;
 
-public class Promotion {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
+public class Promotion {
+	
+	@Id
+	@GeneratedValue
+	public int id;
 	public String code;
 	public float percentage;
-	public int id;
+
 	
 	
 	

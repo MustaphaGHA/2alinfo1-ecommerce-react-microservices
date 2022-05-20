@@ -43,7 +43,7 @@ public class ClientMicroserviceApplication {
 					"test123"
 			);
 
-			//repository.findClientEntityByEmail(client.getEmail()).orElse(repository.insert(client));
+			repository.insert(client);
 		};
 	}
 

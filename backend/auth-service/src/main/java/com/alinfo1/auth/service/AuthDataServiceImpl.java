@@ -1,0 +1,53 @@
+package com.alinfo1.auth.service;
+
+import com.alinfo1.auth.repository.UserInfoRepository;
+import com.alinfo1.auth.entity.UserInfo;
+import com.alinfo1.auth.util.Md5Util;
+import com.alinfo1.auth.service.AuthDataService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
+
+@Service
+public class AuthDataServiceImpl implements AuthDataService {
+
+    @Autowired
+    private UserInfoRepository UserInfoRepository;
+
+    public UserInfo findByUsername(String username) {
+        Optional<UserInfo> result = UserInfoRepository.findByUsername(username);
+
+        UserInfo userInfo = null;
+
+        if(result.isPresent()) {
+            userInfo = result.get();
+        }
+
+        return userInfo;
+    }
+
+    public UserInfo findByEmail(String email) {
+        Optional<UserInfo> result = UserInfoRepository.findByEmail(email);
+
+        UserInfo userInfo = null;
+
+        if(result.isPresent()) {
+            userInfo = result.get();
+        }
+
+        return userInfo;
+    }
+
+    public void createUserProfile(UserInfo userInfo) throws NoSuchAlgorithmException {
+        UserInfoRepository.createUserProfile(userInfo.getUsername(),
+                userInfo.getFirstName(), userInfo.getLastName(),
+                userInfo.getEmail(), Md5Util.getInstance().getMd5Hash(userInfo.getPassword()));
+    }
+
+    public void deleteByUsernamePassword(String username, String password) throws NoSuchAlgorithmException {
+        UserInfoRepository.deleteByUsernamePassword(username, Md5Util.getInstance().getMd5Hash(password));
+    }
+}

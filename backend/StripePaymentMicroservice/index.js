@@ -53,6 +53,6 @@ app.post("/create-checkout-session", async (req, res) => {
   }
 });
 
-app.listen(8088);
+app.listen(8089);
 
-eurekaHelper.registerWithEureka("user-service", 8088);
+eurekaHelper.registerWithEureka("user-service", 8089);

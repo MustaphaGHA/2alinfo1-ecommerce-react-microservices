@@ -1,15 +1,9 @@
 version: "3.8"
 services:
-  mysql-db:
-    image: mysql:8
-    container_name: mysql-db-container
+  mysql-db2:
+    image: "mysql:5.6"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: clientdb
-      MYSQL_USER: rootuser
-      MYSQL_PASSWORD: rootpass
-    volumes:
-        - ./mysql-db/user.sql:/docker-entrypoint-initdb.d/user.sql
+      - MYSQL_ROOT_PASSWORD=rootpass
     ports:
       - 3312:3306
   mongodb:
@@ -44,37 +38,6 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
-  Eureka:
-    container_name: serviceregistry
-    build: ./2alinfo1-eureka-server-ecommerce
-    ports:
-      - "8761:8761"
-    hostname: serviceregistry
-    image: "eureka"
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8761/eureka/
-  Zuul:
-    container_name: Zuul
-    image: "zuul"
-    build: ./Zuul-Gateway
-    ports:
-      - "8050:8050"
-    hostname: Zuul
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8761/eureka/
-    depends_on:
-      - "Eureka"
-  stripe:
-    container_name: stripe
-    image: "stripepay"
-    build: ./StripePaymentMicroservice
-    ports:
-      - "8089:8089"
-    hostname: stripe
-    depends_on:
-      - "Eureka"
-      - "Mongo"
-    command: "node ./index.js"
 volumes:
   data: {}
   postgres: {}

@@ -55,4 +55,4 @@ app.post("/create-checkout-session", async (req, res) => {
 
 app.listen(8089);
 
-eurekaHelper.registerWithEureka("user-service", 8089);
+eurekaHelper.registerWithEureka("pay-service", 8089);
